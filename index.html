@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painter's Studio — Blog</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #d2d2d2;
+        background-image: repeating-linear-gradient(
+            to right,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          );
+      }
+
+      body::before {
+        position: absolute;
+        width: min(1400px, 90vw);
+        top: 10%;
+        left: 50%;
+        height: 90%;
+        transform: translateX(-50%);
+        content: "";
+        background-image: url(images/bg.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: top center;
+        pointer-events: none;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">Painter's Studio</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#gallery">Gallery</a>
+        <a href="#posts">Blog</a>
+        <a href="#about">About</a>
+        <a href="#newsletter" class="cta">Subscribe</a>
+      </nav>
+    </header>
+
+    <div class="banner">
+      <div class="slider" style="--quantity: 10">
+        <div class="item" style="--position: 1">
+          <a
+            href="detail.html?img=images/dragon_1.jpg&title=Featured%20Artwork%201"
+          >
+            <img src="images/dragon_1.jpg" alt="Featured artwork 1" />
+          </a>
+        </div>
+        <div class="item" style="--position: 2">
+          <a
+            href="detail.html?img=images/dragon_2.jpg&title=Featured%20Artwork%202"
+          >
+            <img src="images/dragon_2.jpg" alt="Featured artwork 2" />
+          </a>
+        </div>
+        <div class="item" style="--position: 3">
+          <a
+            href="detail.html?img=images/dragon_3.jpg&title=Featured%20Artwork%203"
+          >
+            <img src="images/dragon_3.jpg" alt="Featured artwork 3" />
+          </a>
+        </div>
+        <div class="item" style="--position: 4">
+          <a
+            href="detail.html?img=images/dragon_4.jpg&title=Featured%20Artwork%204"
+          >
+            <img src="images/dragon_4.jpg" alt="Featured artwork 4" />
+          </a>
+        </div>
+        <div class="item" style="--position: 5">
+          <a
+            href="detail.html?img=images/dragon_5.jpg&title=Featured%20Artwork%205"
+          >
+            <img src="images/dragon_5.jpg" alt="Featured artwork 5" />
+          </a>
+        </div>
+        <div class="item" style="--position: 6">
+          <a
+            href="detail.html?img=images/dragon_6.jpg&title=Featured%20Artwork%206"
+          >
+            <img src="images/dragon_6.jpg" alt="Featured artwork 6" />
+          </a>
+        </div>
+        <div class="item" style="--position: 7">
+          <a
+            href="detail.html?img=images/dragon_7.jpg&title=Featured%20Artwork%207"
+          >
+            <img src="images/dragon_7.jpg" alt="Featured artwork 7" />
+          </a>
+        </div>
+        <div class="item" style="--position: 8">
+          <a
+            href="detail.html?img=images/dragon_8.jpg&title=Featured%20Artwork%208"
+          >
+            <img src="images/dragon_8.jpg" alt="Featured artwork 8" />
+          </a>
+        </div>
+        <div class="item" style="--position: 9">
+          <a
+            href="detail.html?img=images/dragon_9.jpg&title=Featured%20Artwork%209"
+          >
+            <img src="images/dragon_9.jpg" alt="Featured artwork 9" />
+          </a>
+        </div>
+        <div class="item" style="--position: 10">
+          <a
+            href="detail.html?img=images/dragon_10.jpg&title=Featured%20Artwork%2010"
+          >
+            <img src="images/dragon_10.jpg" alt="Featured artwork 10" />
+          </a>
+        </div>
+      </div>
+      <div class="content">
+        <h1 id="gallery" data-content="Painter's Studio">Painter's Studio</h1>
+        <div class="author">
+          <h2>by Yaroslav</h2>
+          <p><b>Color, texture, and storytelling on canvas</b></p>
+          <p>Explorations in oil and acrylic. New posts every week.</p>
+        </div>
+        <div class="model"></div>
+      </div>
+    </div>
+
+    <main>
+      <section id="gallery" class="section gallery">
+        <h3 class="section-title">Gallery</h3>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_1.jpg&title=Gallery%20Image%201"
+            >
+              <img src="images/dragon_1.jpg" alt="Gallery image 1" />
+            </a>
+          </figure>
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_2.jpg&title=Gallery%20Image%202"
+            >
+              <img src="images/dragon_2.jpg" alt="Gallery image 2" />
+            </a>
+          </figure>
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_3.jpg&title=Gallery%20Image%203"
+            >
+              <img src="images/dragon_3.jpg" alt="Gallery image 3" />
+            </a>
+          </figure>
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_4.jpg&title=Gallery%20Image%204"
+            >
+              <img src="images/dragon_4.jpg" alt="Gallery image 4" />
+            </a>
+          </figure>
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_5.jpg&title=Gallery%20Image%205"
+            >
+              <img src="images/dragon_5.jpg" alt="Gallery image 5" />
+            </a>
+          </figure>
+          <figure class="gallery-item">
+            <a
+              href="detail.html?img=images/dragon_6.jpg&title=Gallery%20Image%206"
+            >
+              <img src="images/dragon_6.jpg" alt="Gallery image 6" />
+            </a>
+          </figure>
+        </div>
+      </section>
+
+      <section id="posts" class="section posts">
+        <h3 class="section-title">Latest Posts</h3>
+        <div class="posts-grid">
+          <article class="post-card">
+            <a href="#">
+              <img src="images/dragon_1.jpg" alt="Post cover: Color study" />
+              <div class="post-content">
+                <h4>Color Study: Warm vs Cool</h4>
+                <p>
+                  Balancing palettes for mood and depth in landscape pieces.
+                </p>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="#">
+              <img
+                src="images/dragon_2.jpg"
+                alt="Post cover: Brush techniques"
+              />
+              <div class="post-content">
+                <h4>5 Brush Techniques I Use Daily</h4>
+                <p>From scumbling to glazing—methods that build texture.</p>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="#">
+              <img
+                src="images/dragon_3.jpg"
+                alt="Post cover: Studio lighting"
+              />
+              <div class="post-content">
+                <h4>Studio Lighting on a Budget</h4>
+                <p>
+                  How I light canvases for accurate color without breaking the
+                  bank.
+                </p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="section about">
+        <div class="about-inner">
+          <div class="about-media">
+            <img src="images/model.png" alt="Portrait of Yaroslav" />
+          </div>
+          <div class="about-content">
+            <h3 class="section-title">About Yaroslav</h3>
+            <h4 class="slogan">Painting stories with light and color.</h4>
+            <p>
+              Yaroslav is a painter focused on color, light, and
+              texture—blending narrative realism with modern abstraction. Here
+              he shares studio notes, techniques, and works‑in‑progress across
+              oil and acrylic series.
+            </p>
+            <div class="socials">
+              <a class="social" href="#" aria-label="Instagram">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5"
+                    stroke="#25283B"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="#25283B"
+                    stroke-width="2"
+                  />
+                  <circle cx="17.5" cy="6.5" r="1" fill="#25283B" />
+                </svg>
+                <span>@yaroslav.art</span>
+              </a>
+              <a class="social" href="#" aria-label="Behance">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 7h6a3 3 0 110 6H4V7zm0 6h6a3 3 0 010 6H4v-6z"
+                    stroke="#25283B"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M19.5 10.5c-1.933 0-3.5 1.567-3.5 3.5s1.567 3.5 3.5 3.5c1.356 0 2.54-.755 3.137-1.873"
+                    stroke="#25283B"
+                    stroke-width="2"
+                  />
+                  <path d="M16 7h7" stroke="#25283B" stroke-width="2" />
+                </svg>
+                <span>/yaroslav</span>
+              </a>
+              <a class="social" href="#" aria-label="Twitter">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22 5.8a7.9 7.9 0 01-2.3.6 4 4 0 001.8-2.2 7.7 7.7 0 01-2.5 1 3.9 3.9 0 00-6.7 3.5A11 11 0 013 4.6a3.9 3.9 0 001.2 5.2 4 4 0 01-1.8-.5v.1a3.9 3.9 0 003.1 3.8 4 4 0 01-1.8.1 3.9 3.9 0 003.7 2.8A7.9 7.9 0 012 18.2a11.1 11.1 0 006 1.8c7.2 0 11.2-6 11.2-11.2v-.5A8 8 0 0022 5.8z"
+                    fill="#25283B"
+                  />
+                </svg>
+                <span>@yaroslav</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="newsletter"
+        class="section newsletter"
+        aria-labelledby="newsletter-title"
+      >
+        <h3 id="newsletter-title" class="section-title">
+          Subscribe for Updates
+        </h3>
+        <form action="#" method="post" class="newsletter-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            aria-label="Email address"
+            required
+          />
+          <button type="submit" class="cta">Subscribe</button>
+        </form>
+        <p class="fineprint">No spam. Unsubscribe anytime.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="year"></span> Painter's Studio. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

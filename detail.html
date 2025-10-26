@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artwork Detail — Painter's Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Page-specific minimal tweaks using existing theme */
+    .detail-wrapper{ width:min(1200px,92vw); margin:120px auto 48px; display:grid; grid-template-columns: 1.2fr .8fr; gap:32px; align-items:start; }
+    .detail-media{ background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.08); }
+    .detail-media img{ width:100%; height:auto; display:block; }
+    .detail-info{ font-family:Poppins, sans-serif; color:#25283B; }
+    .detail-info h1{ font-family:"ICA Rubrik", Poppins, sans-serif; font-size:clamp(28px, 4.5vw, 48px); margin-bottom:12px; color:#25283B; }
+    .detail-info p{ line-height:1.6; opacity:.9; }
+    .detail-meta{ margin:16px 0 24px; font-size:14px; opacity:.8; }
+    .back-link{ display:inline-block; margin-top:16px; text-decoration:none; color:#25283B; font-weight:600; }
+    @media screen and (max-width: 900px){ .detail-wrapper{ grid-template-columns: 1fr; margin:96px auto 40px; } }
+    @media screen and (max-width: 640px){ .detail-wrapper{ margin:84px auto 32px; gap:20px; } .detail-meta{ font-size:13px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">Painter's Studio</div>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html#gallery">Gallery</a>
+      <a href="index.html#posts">Blog</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#newsletter" class="cta">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="detail-wrapper">
+    <div class="detail-media">
+      <img id="art-image" src="images/dragon_1.jpg" alt="Artwork image" />
+    </div>
+    <div class="detail-info">
+      <h1 id="art-title">Artwork Title</h1>
+      <div class="detail-meta" id="art-meta">Medium: Unknown · Size: —</div>
+      <p id="art-desc">No description provided. Explore the gallery for more pieces and process notes.</p>
+      <a class="back-link" href="index.html#gallery">← Back to Gallery</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Painter's Studio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function(){
+      const p = new URLSearchParams(window.location.search);
+      const img = p.get('img');
+      const title = p.get('title');
+      const desc = p.get('desc');
+      const meta = p.get('meta');
+      if(img) { const i = document.getElementById('art-image'); i.src = img; i.alt = title || 'Artwork image'; }
+      if(title) document.getElementById('art-title').textContent = title;
+      if(desc) document.getElementById('art-desc').textContent = desc;
+      if(meta) document.getElementById('art-meta').textContent = meta;
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
