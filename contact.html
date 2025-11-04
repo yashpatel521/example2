@@ -214,13 +214,13 @@
         margin-top: 32px;
         border-radius: 12px;
         overflow: hidden;
-        height: 200px;
-        background: #e0e0e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #25283b;
-        font-weight: 600;
+        height: 300px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
       }
 
       /* Responsive styles */
@@ -282,6 +282,9 @@
         }
         .contact-form {
           padding: 24px;
+        }
+        .contact-content {
+          grid-template-columns: 1fr;
         }
       }
 
@@ -426,7 +429,13 @@
           </div>
 
           <div class="map-container">
-            <p>Studio Location Map</p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.04295900104!2d-73.5782466234154!3d45.50735497107394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a436384d8e7%3A0x5eb0c0e4c1f8e30!2sMontreal%20Museum%20of%20Fine%20Arts!5e0!3m2!1sen!2sca!4v1650000000000!5m2!1sen!2sca"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
           </div>
         </div>
 
