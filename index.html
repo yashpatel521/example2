@@ -38,6 +38,107 @@
         background-position: top center;
         pointer-events: none;
       }
+
+      /* Mobile menu toggle button */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 10;
+      }
+
+      .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: #25283b;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+
+      /* Site header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 24px;
+        backdrop-filter: blur(8px);
+        background: rgba(210, 210, 210, 0.5);
+        z-index: 5;
+        font-family: Poppins, sans-serif;
+      }
+      .site-header .brand {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #25283b;
+      }
+      .site-header .nav a {
+        color: #25283b;
+        text-decoration: none;
+        margin-left: 16px;
+        font-weight: 500;
+      }
+      .site-header .nav .cta {
+        padding: 8px 14px;
+        border-radius: 8px;
+        background: #25283b;
+        color: #fff;
+      }
+
+      /* Responsive styles */
+      @media screen and (max-width: 640px) {
+        .site-header {
+          padding: 12px 16px;
+        }
+        .site-header .nav a {
+          margin-left: 10px;
+        }
+
+        /* Mobile menu styles - opening from left */
+        .menu-toggle {
+          display: flex;
+        }
+
+        .site-header .nav {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 70%;
+          height: 100vh;
+          background: rgba(210, 210, 210, 0.95);
+          backdrop-filter: blur(8px);
+          flex-direction: column;
+          justify-content: flex-start;
+          padding: 80px 20px 20px;
+          transition: left 0.3s ease;
+          z-index: 1000;
+          display: flex !important; /* Override the display: none from style.css */
+        }
+
+        .site-header .nav.active {
+          left: 0;
+        }
+
+        .site-header .nav a {
+          margin: 10px 0;
+          padding: 12px 0;
+          font-size: 18px;
+          border-bottom: 1px solid rgba(37, 40, 59, 0.1);
+        }
+
+        .site-header .nav .cta {
+          margin-top: 10px;
+          padding: 12px;
+          text-align: center;
+          border-radius: 8px;
+        }
+      }
     </style>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -48,6 +149,11 @@
           >Painter's Studio</a
         >
       </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav class="nav" aria-label="Primary">
         <a href="gallery.html">Gallery</a>
         <a href="blog.html">Blog</a>
@@ -448,6 +554,57 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.querySelector(".menu-toggle");
+        const nav = document.querySelector(".nav");
+
+        function toggleMenu() {
+          nav.classList.toggle("active");
+
+          // Animate hamburger to X
+          const spans = menuToggle.querySelectorAll("span");
+          if (nav.classList.contains("active")) {
+            spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+            spans[1].style.opacity = "0";
+            spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
+          } else {
+            spans[0].style.transform = "none";
+            spans[1].style.opacity = "1";
+            spans[2].style.transform = "none";
+          }
+        }
+
+        menuToggle.addEventListener("click", toggleMenu);
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll(".nav a");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            nav.classList.remove("active");
+            const spans = menuToggle.querySelectorAll("span");
+            spans[0].style.transform = "none";
+            spans[1].style.opacity = "1";
+            spans[2].style.transform = "none";
+          });
+        });
+
+        // Close menu when clicking outside of it
+        document.addEventListener("click", function (event) {
+          if (
+            nav.classList.contains("active") &&
+            !nav.contains(event.target) &&
+            !menuToggle.contains(event.target)
+          ) {
+            nav.classList.remove("active");
+            const spans = menuToggle.querySelectorAll("span");
+            spans[0].style.transform = "none";
+            spans[1].style.opacity = "1";
+            spans[2].style.transform = "none";
+          }
+        });
+      });
     </script>
   </body>
 </html>
