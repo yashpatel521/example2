@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Art Gallery — Painter's Studio</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Global reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #d2d2d2;
+        background-image: repeating-linear-gradient(
+            to right,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          );
+        font-family: system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #070707;
+        min-block-size: 100vh;
+        min-block-size: 100dvh;
+      }
+
+      body::before {
+        position: absolute;
+        width: min(1400px, 90vw);
+        top: 10%;
+        left: 50%;
+        height: 90%;
+        transform: translateX(-50%);
+        content: "";
+        background-image: url(images/bg.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: top center;
+        pointer-events: none;
+      }
+
+      img {
+        max-inline-size: 100%;
+      }
+
+      /* Main content styles */
+      .main {
+        padding: 1.25rem;
+      }
+
+      /* Gallery page styles */
+      .gallery-page {
+        width: min(1200px, 92vw);
+        margin: 2rem auto;
+      }
+      .gallery-hero {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .gallery-hero h1 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        color: #25283b;
+        margin-bottom: 1rem;
+      }
+      .gallery-hero p {
+        font-family: Poppins, sans-serif;
+        font-size: 1.125rem;
+        max-width: 700px;
+        margin: 0 auto;
+        color: #25283b;
+        opacity: 0.9;
+      }
+
+      /* Photo Gallery - CSS Grid Approach */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+        grid-auto-rows: 12.5rem;
+        grid-auto-flow: dense;
+        gap: 0.75rem;
+      }
+
+      .gallery figure {
+        container: figure / inline-size;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .gallery figure:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .gallery img {
+        inline-size: 100%;
+        block-size: 100%;
+        object-fit: cover;
+        grid-area: 1 / 1 / -1 / -1;
+        transition: scale 1s ease-in-out;
+      }
+
+      .gallery figure:hover img {
+        scale: 1.125;
+      }
+
+      .gallery figcaption {
+        grid-area: 1 / 1 / -1 / -1;
+        align-self: end;
+        z-index: 1;
+        padding: 3em 15% 1em 1em;
+        color: #fff;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        background: linear-gradient(transparent 25%, rgb(0 0 0 / 0.75));
+        display: none;
+      }
+
+      @container figure (width > 20rem) {
+        .gallery figcaption {
+          display: block;
+        }
+      }
+
+      .gallery figcaption h3 {
+        font-size: 1.0625rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .gallery figcaption p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+
+      /* Masonry layout for larger screens */
+      @media (width > 600px) {
+        .gallery figure:nth-child(1) {
+          grid-area: span 2 / span 2;
+        }
+
+        .gallery figure:nth-child(4n + 1) {
+          grid-row: span 2;
+        }
+
+        .gallery figure:nth-child(4n + 2) {
+          grid-column: span 2;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+          grid-auto-rows: 10rem;
+        }
+        .gallery-hero {
+          margin-bottom: 1.5rem;
+        }
+        .gallery-hero h1 {
+          font-size: clamp(1.75rem, 6vw, 3rem);
+        }
+        .gallery-hero p {
+          font-size: 1rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 8rem;
+        }
+        .gallery-page {
+          margin: 1.5rem auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <a href="index.html" style="color: inherit; text-decoration: none"
+          >Painter's Studio</a
+        >
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="index.html#newsletter" class="cta">Subscribe</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="gallery-page">
+        <div class="gallery-hero">
+          <h1>Art Gallery</h1>
+          <p>
+            Explore my collection of paintings, each telling its own unique
+            story through color, texture, and light.
+          </p>
+        </div>
+
+        <div class="gallery">
+          <!-- Gallery items will be generated here -->
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting1.jpg&title=Artwork%201&desc=Oil%20on%20canvas%20painting%20exploring%20themes%20of%20light%20and%20shadow.&meta=Oil%20on%20canvas%20·%2040x60cm"
+            >
+              <img src="images/paintings/painting1.jpg" alt="Artwork 1" />
+              <figcaption>
+                <h3>Artwork 1</h3>
+                <p>Oil on canvas · 40x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting2.jpg&title=Artwork%202&desc=Abstract%20composition%20with%20vibrant%20colors%20and%20dynamic%20brushwork.&meta=Acrylic%20on%20canvas%20·%2050x70cm"
+            >
+              <img src="images/paintings/painting2.jpg" alt="Artwork 2" />
+              <figcaption>
+                <h3>Artwork 2</h3>
+                <p>Acrylic on canvas · 50x70cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting3.jpg&title=Artwork%203&desc=Landscape%20painting%20capturing%20the%20essence%20of%20a%20sunset%20over%20rolling%20hills.&meta=Oil%20on%20canvas%20·%2060x80cm"
+            >
+              <img src="images/paintings/painting3.jpg" alt="Artwork 3" />
+              <figcaption>
+                <h3>Artwork 3</h3>
+                <p>Oil on canvas · 60x80cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting4.jpg&title=Artwork%204&desc=Portrait%20study%20focusing%20on%20expression%20and%20the%20interplay%20of%20warm%20and%20cool%20tones.&meta=Oil%20on%20canvas%20·%2030x40cm"
+            >
+              <img src="images/paintings/painting4.jpg" alt="Artwork 4" />
+              <figcaption>
+                <h3>Artwork 4</h3>
+                <p>Oil on canvas · 30x40cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting5.jpg&title=Artwork%205&desc=Abstract%20exploration%20of%20movement%20and%20energy%20through%20bold%20brushstrokes.&meta=Acrylic%20on%20canvas%20·%2070x100cm"
+            >
+              <img src="images/paintings/painting5.jpg" alt="Artwork 5" />
+              <figcaption>
+                <h3>Artwork 5</h3>
+                <p>Acrylic on canvas · 70x100cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting6.jpg&title=Artwork%206&desc=Seascape%20painting%20capturing%20the%20power%20and%20serenity%20of%20ocean%20waves.&meta=Oil%20on%20canvas%20·%2050x60cm"
+            >
+              <img src="images/paintings/painting6.jpg" alt="Artwork 6" />
+              <figcaption>
+                <h3>Artwork 6</h3>
+                <p>Oil on canvas · 50x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting7.jpg&title=Artwork%207&desc=Still%20life%20composition%20with%20fruit%20and%20flowers%20in%20soft%20lighting.&meta=Oil%20on%20canvas%20·%2040x50cm"
+            >
+              <img src="images/paintings/painting7.jpg" alt="Artwork 7" />
+              <figcaption>
+                <h3>Artwork 7</h3>
+                <p>Oil on canvas · 40x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting8.jpg&title=Artwork%208&desc=Urban%20landscape%20depicting%20the%20architecture%20and%20atmosphere%20of%20city%20streets.&meta=Acrylic%20on%20canvas%20·%2060x80cm"
+            >
+              <img src="images/paintings/painting8.jpg" alt="Artwork 8" />
+              <figcaption>
+                <h3>Artwork 8</h3>
+                <p>Acrylic on canvas · 60x80cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting9.jpg&title=Artwork%209&desc=Nature%20study%20focusing%20on%20the%20intricate%20details%20of%20foliage%20and%20natural%20light.&meta=Watercolor%20on%20paper%20·%2030x40cm"
+            >
+              <img src="images/paintings/painting9.jpg" alt="Artwork 9" />
+              <figcaption>
+                <h3>Artwork 9</h3>
+                <p>Watercolor on paper · 30x40cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting10.jpg&title=Artwork%2010&desc=Abstract%20composition%20exploring%20the%20relationship%20between%20color%20and%20emotion.&meta=Acrylic%20on%20canvas%20·%2050x50cm"
+            >
+              <img src="images/paintings/painting10.jpg" alt="Artwork 10" />
+              <figcaption>
+                <h3>Artwork 10</h3>
+                <p>Acrylic on canvas · 50x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting11.jpg&title=Artwork%2011&desc=Portrait%20of%20an%20elderly%20woman%20showcasing%20the%20beauty%20of%20aging%20and%20wisdom.&meta=Oil%20on%20canvas%20·%2040x60cm"
+            >
+              <img src="images/paintings/painting11.jpg" alt="Artwork 11" />
+              <figcaption>
+                <h3>Artwork 11</h3>
+                <p>Oil on canvas · 40x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting12.jpg&title=Artwork%2012&desc=Abstract%20landscape%20interpreting%20the%20emotional%20essence%20of%20a%20mountain%20range.&meta=Acrylic%20on%20canvas%20·%2060x90cm"
+            >
+              <img src="images/paintings/painting12.jpg" alt="Artwork 12" />
+              <figcaption>
+                <h3>Artwork 12</h3>
+                <p>Acrylic on canvas · 60x90cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting13.jpg&title=Artwork%2013&desc=Impressionist%20study%20of%20a%20garden%20in%20full%20bloom%20during%20spring.&meta=Oil%20on%20canvas%20·%2050x60cm"
+            >
+              <img src="images/paintings/painting13.jpg" alt="Artwork 13" />
+              <figcaption>
+                <h3>Artwork 13</h3>
+                <p>Oil on canvas · 50x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting14.jpg&title=Artwork%2014&desc=Abstract%20expressionist%20piece%20exploring%20themes%20of%20chaos%20and%20order.&meta=Acrylic%20on%20canvas%20·%2070x100cm"
+            >
+              <img src="images/paintings/painting14.jpg" alt="Artwork 14" />
+              <figcaption>
+                <h3>Artwork 14</h3>
+                <p>Acrylic on canvas · 70x100cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting15.jpg&title=Artwork%2015&desc=Realist%20portrait%20of%20a%20young%20man%20with%20intense%20expression%20and%20dramatic%20lighting.&meta=Oil%20on%20canvas%20·%2040x50cm"
+            >
+              <img src="images/paintings/painting15.jpg" alt="Artwork 15" />
+              <figcaption>
+                <h3>Artwork 15</h3>
+                <p>Oil on canvas · 40x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting16.jpg&title=Artwork%2016&desc=Landscape%20painting%20of%20a%20forest%20path%20in%20autumn%20with%20vibrant%20foliage.&meta=Oil%20on%20canvas%20·%2060x80cm"
+            >
+              <img src="images/paintings/painting16.jpg" alt="Artwork 16" />
+              <figcaption>
+                <h3>Artwork 16</h3>
+                <p>Oil on canvas · 60x80cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting17.jpg&title=Artwork%2017&desc=Abstract%20composition%20with%20geometric%20shapes%20and%20contrasting%20colors.&meta=Acrylic%20on%20canvas%20·%2050x50cm"
+            >
+              <img src="images/paintings/painting17.jpg" alt="Artwork 17" />
+              <figcaption>
+                <h3>Artwork 17</h3>
+                <p>Acrylic on canvas · 50x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting18.jpg&title=Artwork%2018&desc=Seascape%20with%20boats%20in%20a%20harbor%20at%20golden%20hour%20lighting.&meta=Oil%20on%20canvas%20·%2050x70cm"
+            >
+              <img src="images/paintings/painting18.jpg" alt="Artwork 18" />
+              <figcaption>
+                <h3>Artwork 18</h3>
+                <p>Oil on canvas · 50x70cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting19.jpg&title=Artwork%2019&desc=Still%20life%20with%20antique%20objects%20and%20rich%20textural%20elements.&meta=Oil%20on%20canvas%20·%2040x60cm"
+            >
+              <img src="images/paintings/painting19.jpg" alt="Artwork 19" />
+              <figcaption>
+                <h3>Artwork 19</h3>
+                <p>Oil on canvas · 40x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting20.jpg&title=Artwork%2020&desc=Portrait%20of%20a%20child%20with%20soft%20lighting%20and%20delicate%20brushwork.&meta=Oil%20on%20canvas%20·%2030x40cm"
+            >
+              <img src="images/paintings/painting20.jpg" alt="Artwork 20" />
+              <figcaption>
+                <h3>Artwork 20</h3>
+                <p>Oil on canvas · 30x40cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting21.jpg&title=Artwork%2021&desc=Abstract%20urban%20scene%20interpreting%20the%20energy%20of%20city%20life.&meta=Acrylic%20on%20canvas%20·%2060x80cm"
+            >
+              <img src="images/paintings/painting21.jpg" alt="Artwork 21" />
+              <figcaption>
+                <h3>Artwork 21</h3>
+                <p>Acrylic on canvas · 60x80cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting22.jpg&title=Artwork%2022&desc=Landscape%20of%20a%20mountain%20lake%20at%20dawn%20with%20reflection%20effects.&meta=Oil%20on%20canvas%20·%2070x90cm"
+            >
+              <img src="images/paintings/painting22.jpg" alt="Artwork 22" />
+              <figcaption>
+                <h3>Artwork 22</h3>
+                <p>Oil on canvas · 70x90cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting23.jpg&title=Artwork%2023&desc=Large%20scale%20abstract%20piece%20exploring%20the%20relationship%20between%20color%20and%20space.&meta=Acrylic%20on%20canvas%20·%20100x150cm"
+            >
+              <img src="images/paintings/painting23.jpg" alt="Artwork 23" />
+              <figcaption>
+                <h3>Artwork 23</h3>
+                <p>Acrylic on canvas · 100x150cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting24.jpg&title=Artwork%2024&desc=Nature%20study%20of%20wildflowers%20in%20a%20meadow%20with%20loose%20brushwork.&meta=Watercolor%20on%20paper%20·%2030x40cm"
+            >
+              <img src="images/paintings/painting24.jpg" alt="Artwork 24" />
+              <figcaption>
+                <h3>Artwork 24</h3>
+                <p>Watercolor on paper · 30x40cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting25.jpg&title=Artwork%2025&desc=Portrait%20study%20with%20emphasis%20on%20lighting%20and%20shadow%20effects.&meta=Oil%20on%20canvas%20·%2040x50cm"
+            >
+              <img src="images/paintings/painting25.jpg" alt="Artwork 25" />
+              <figcaption>
+                <h3>Artwork 25</h3>
+                <p>Oil on canvas · 40x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting26.jpg&title=Artwork%2026&desc=Abstract%20composition%20with%20fluid%20forms%20and%20transitional%20colors.&meta=Acrylic%20on%20canvas%20·%2050x70cm"
+            >
+              <img src="images/paintings/painting26.jpg" alt="Artwork 26" />
+              <figcaption>
+                <h3>Artwork 26</h3>
+                <p>Acrylic on canvas · 50x70cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting27.jpg&title=Artwork%2027&desc=Urban%20landscape%20capturing%20the%20architecture%20of%20a%20historic%20district.&meta=Oil%20on%20canvas%20·%2060x80cm"
+            >
+              <img src="images/paintings/painting27.jpg" alt="Artwork 27" />
+              <figcaption>
+                <h3>Artwork 27</h3>
+                <p>Oil on canvas · 60x80cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting28.jpg&title=Artwork%2028&desc=Abstract%20exploration%20of%20texture%20and%20layering%20techniques.&meta=Mixed%20media%20on%20canvas%20·%2050x50cm"
+            >
+              <img src="images/paintings/painting28.jpg" alt="Artwork 28" />
+              <figcaption>
+                <h3>Artwork 28</h3>
+                <p>Mixed media on canvas · 50x50cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting29.jpg&title=Artwork%2029&desc=Large%20scale%20landscape%20depicting%20a%20desert%20scene%20at%20sunset.&meta=Oil%20on%20canvas%20·%2080x120cm"
+            >
+              <img src="images/paintings/painting29.jpg" alt="Artwork 29" />
+              <figcaption>
+                <h3>Artwork 29</h3>
+                <p>Oil on canvas · 80x120cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting30.jpg&title=Artwork%2030&desc=Portrait%20of%20an%20elderly%20couple%20with%20emotional%20depth%20and%20detail.&meta=Oil%20on%20canvas%20·%2040x60cm"
+            >
+              <img src="images/paintings/painting30.jpg" alt="Artwork 30" />
+              <figcaption>
+                <h3>Artwork 30</h3>
+                <p>Oil on canvas · 40x60cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting31.jpg&title=Artwork%2031&desc=Abstract%20composition%20exploring%20the%20dynamics%20of%20color%20and%20form.&meta=Acrylic%20on%20canvas%20·%2060x90cm"
+            >
+              <img src="images/paintings/painting31.jpg" alt="Artwork 31" />
+              <figcaption>
+                <h3>Artwork 31</h3>
+                <p>Acrylic on canvas · 60x90cm</p>
+              </figcaption>
+            </a>
+          </figure>
+
+          <figure>
+            <a
+              href="detail.html?img=images/paintings/painting32.jpg&title=Artwork%2032&desc=Final%20piece%20in%20the%20series%20exploring%20themes%20of%20light%20and%20transformation.&meta=Oil%20on%20canvas%20·%2070x100cm"
+            >
+              <img src="images/paintings/painting32.jpg" alt="Artwork 32" />
+              <figcaption>
+                <h3>Artwork 32</h3>
+                <p>Oil on canvas · 70x100cm</p>
+              </figcaption>
+            </a>
+          </figure>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="site-footer"
+      style="
+        padding: 20px;
+        text-align: center;
+        font-family: Poppins, sans-serif;
+        color: #25283b;
+        grid-column: main;
+      "
+    >
+      <p>
+        &copy; <span id="year"></span> Painter's Studio. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

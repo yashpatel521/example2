@@ -1,64 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artwork Detail — Painter's Studio</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Page-specific minimal tweaks using existing theme */
-    .detail-wrapper{ width:min(1200px,92vw); margin:120px auto 48px; display:grid; grid-template-columns: 1.2fr .8fr; gap:32px; align-items:start; }
-    .detail-media{ background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.08); }
-    .detail-media img{ width:100%; height:auto; display:block; }
-    .detail-info{ font-family:Poppins, sans-serif; color:#25283B; }
-    .detail-info h1{ font-family:"ICA Rubrik", Poppins, sans-serif; font-size:clamp(28px, 4.5vw, 48px); margin-bottom:12px; color:#25283B; }
-    .detail-info p{ line-height:1.6; opacity:.9; }
-    .detail-meta{ margin:16px 0 24px; font-size:14px; opacity:.8; }
-    .back-link{ display:inline-block; margin-top:16px; text-decoration:none; color:#25283B; font-weight:600; }
-    @media screen and (max-width: 900px){ .detail-wrapper{ grid-template-columns: 1fr; margin:96px auto 40px; } }
-    @media screen and (max-width: 640px){ .detail-wrapper{ margin:84px auto 32px; gap:20px; } .detail-meta{ font-size:13px; } }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <div class="brand">Painter's Studio</div>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html#gallery">Gallery</a>
-      <a href="index.html#posts">Blog</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#newsletter" class="cta">Subscribe</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artwork Detail — Painter's Studio</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Global reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #d2d2d2;
+        background-image: repeating-linear-gradient(
+            to right,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          );
+        font-family: system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #070707;
+        min-block-size: 100vh;
+        min-block-size: 100dvh;
+      }
 
-  <main class="detail-wrapper">
-    <div class="detail-media">
-      <img id="art-image" src="images/dragon_1.jpg" alt="Artwork image" />
-    </div>
-    <div class="detail-info">
-      <h1 id="art-title">Artwork Title</h1>
-      <div class="detail-meta" id="art-meta">Medium: Unknown · Size: —</div>
-      <p id="art-desc">No description provided. Explore the gallery for more pieces and process notes.</p>
-      <a class="back-link" href="index.html#gallery">← Back to Gallery</a>
-    </div>
-  </main>
+      body::before {
+        position: absolute;
+        width: min(1400px, 90vw);
+        top: 10%;
+        left: 50%;
+        height: 90%;
+        transform: translateX(-50%);
+        content: "";
+        background-image: url(images/bg.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: top center;
+        pointer-events: none;
+      }
 
-  <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Painter's Studio. All rights reserved.</p>
-  </footer>
+      img {
+        max-inline-size: 100%;
+      }
 
-  <script>
-    (function(){
-      const p = new URLSearchParams(window.location.search);
-      const img = p.get('img');
-      const title = p.get('title');
-      const desc = p.get('desc');
-      const meta = p.get('meta');
-      if(img) { const i = document.getElementById('art-image'); i.src = img; i.alt = title || 'Artwork image'; }
-      if(title) document.getElementById('art-title').textContent = title;
-      if(desc) document.getElementById('art-desc').textContent = desc;
-      if(meta) document.getElementById('art-meta').textContent = meta;
-      document.getElementById('year').textContent = new Date().getFullYear();
-    })();
-  </script>
-</body>
+      /* Page-specific minimal tweaks using existing theme */
+      .detail-wrapper {
+        width: min(1200px, 92vw);
+        margin: 2rem auto 2rem;
+      }
+      .detail-media {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        margin: 20px 0;
+      }
+      .detail-media img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .detail-info {
+        font-family: Poppins, sans-serif;
+        color: #25283b;
+      }
+      .detail-info h1 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: clamp(28px, 4.5vw, 48px);
+        margin-bottom: 12px;
+        color: #25283b;
+      }
+      .detail-info h3 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: 24px;
+        margin: 24px 0 16px;
+        color: #25283b;
+      }
+      .detail-info p {
+        line-height: 1.6;
+        margin-bottom: 16px;
+        opacity: 0.9;
+      }
+      .artwork-description p {
+        margin-bottom: 20px;
+      }
+      .artwork-image-section {
+        margin: 24px 0;
+        text-align: center;
+      }
+      .artwork-image-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      .artist-info p {
+        margin-bottom: 16px;
+      }
+      .artist-philosophy {
+        margin: 20px 0;
+        padding: 16px 20px;
+        border: 1px solid #25283b33;
+        border-left-width: 5px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        font-weight: 600;
+        position: relative;
+      }
+      .artist-philosophy::before {
+        content: "Artist's Philosophy";
+        position: absolute;
+        top: -10px;
+        left: 16px;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.3px;
+        color: #25283b;
+        background: #d2d2d2;
+        border: 1px solid #25283b33;
+        border-radius: 6px;
+        padding: 3px 8px;
+      }
+      .detail-meta {
+        margin: 16px 0 24px;
+        font-size: 14px;
+        opacity: 0.8;
+      }
+      .latest-blog-section {
+        margin-top: 32px;
+      }
+      .latest-blog-section h3 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #25283b;
+      }
+      .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .post-card {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid #e6e6e6;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .post-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+      }
+      .post-card a {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+      }
+      .post-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+      }
+      .post-card .post-content {
+        padding: 16px;
+        font-family: Poppins, sans-serif;
+        text-align: left;
+      }
+      .post-card h4 {
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: #25283b;
+      }
+      .post-card p {
+        color: #333;
+        opacity: 0.9;
+      }
+      .view-all-posts {
+        text-align: center;
+        margin-top: 24px;
+      }
+      .view-all-posts .cta {
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 1rem;
+        text-decoration: none;
+        background: #25283b;
+        color: #fff;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37, 40, 59, 0.15);
+      }
+      .view-all-posts .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 40, 59, 0.2);
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 24px;
+        text-decoration: none;
+        color: #25283b;
+        font-weight: 600;
+      }
+      @media screen and (max-width: 900px) {
+        .detail-wrapper {
+          margin: 96px auto 40px;
+        }
+      }
+      @media screen and (max-width: 640px) {
+        .detail-wrapper {
+          margin: 84px auto 32px;
+        }
+        .detail-meta {
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <a href="index.html" style="color: inherit; text-decoration: none"
+          >Painter's Studio</a
+        >
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="index.html#newsletter" class="cta">Subscribe</a>
+      </nav>
+    </header>
+
+    <main class="detail-wrapper">
+      <div class="detail-info">
+        <h1 id="art-title">Artwork Title</h1>
+
+        <div class="detail-media">
+          <img id="art-image" src="images/dragon_1.jpg" alt="Artwork image" />
+        </div>
+
+        <div class="detail-meta" id="art-meta">Medium: Unknown · Size: —</div>
+        <div class="artwork-description">
+          <p id="art-desc">
+            No description provided. Explore the gallery for more pieces and
+            process notes.
+          </p>
+        </div>
+
+        <div class="artist-section">
+          <h3>About the Artist</h3>
+          <div class="artist-info">
+            <p>
+              Yaroslav is a professional painter with over a decade of
+              experience exploring the boundaries between traditional techniques
+              and contemporary expression. His work primarily focuses on oil and
+              acrylic paintings that capture moments of light and emotion.
+            </p>
+
+            <div class="artist-philosophy">
+              <p>
+                <strong>Artist's Philosophy:</strong> Painting stories with
+                light and color.
+              </p>
+            </div>
+
+            <p>
+              In his work, Yaroslav aims to create pieces that invite viewers to
+              step into a moment and experience the emotions and atmosphere he
+              felt when creating the piece. Each painting is a journey, both for
+              him as the artist and for those who view the work.
+            </p>
+          </div>
+        </div>
+
+        <div class="latest-blog-section">
+          <h3>Latest Blog</h3>
+          <div class="posts-grid">
+            <article class="post-card">
+              <a
+                href="detail.html?img=images/paintings/painting1.jpg&title=Color%20Study:%20Warm%20vs%20Cool&desc=Balancing%20palettes%20for%20mood%20and%20depth%20in%20landscape%20pieces.&meta=Blog%20Post%20·%205%20min%20read"
+              >
+                <img
+                  src="images/paintings/painting1.jpg"
+                  alt="Post cover: Color study"
+                />
+                <div class="post-content">
+                  <h4>Color Study: Warm vs Cool</h4>
+                  <p>
+                    Balancing palettes for mood and depth in landscape pieces.
+                  </p>
+                </div>
+              </a>
+            </article>
+            <article class="post-card">
+              <a
+                href="detail.html?img=images/paintings/painting2.jpg&title=5%20Brush%20Techniques%20I%20Use%20Daily&desc=From%20scumbling%20to%20glazing—methods%20that%20build%20texture.&meta=Blog%20Post%20·%203%20min%20read"
+              >
+                <img
+                  src="images/paintings/painting2.jpg"
+                  alt="Post cover: Brush techniques"
+                />
+                <div class="post-content">
+                  <h4>5 Brush Techniques I Use Daily</h4>
+                  <p>From scumbling to glazing—methods that build texture.</p>
+                </div>
+              </a>
+            </article>
+            <article class="post-card">
+              <a
+                href="detail.html?img=images/paintings/painting3.jpg&title=Studio%20Lighting%20on%20a%20Budget&desc=How%20I%20light%20canvases%20for%20accurate%20color%20without%20breaking%20the%20bank.&meta=Blog%20Post%20·%204%20min%20read"
+              >
+                <img
+                  src="images/paintings/painting3.jpg"
+                  alt="Post cover: Studio lighting"
+                />
+                <div class="post-content">
+                  <h4>Studio Lighting on a Budget</h4>
+                  <p>
+                    How I light canvases for accurate color without breaking the
+                    bank.
+                  </p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <div style="text-align: center; margin-top: 24px">
+            <a
+              href="blog.html"
+              class="cta"
+              style="
+                display: inline-block;
+                padding: 12px 24px;
+                font-size: 1rem;
+                text-decoration: none;
+                background: #25283b;
+                color: #fff;
+                border-radius: 8px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(37, 40, 59, 0.15);
+              "
+            >
+              View All Blog
+            </a>
+          </div>
+        </div>
+
+        <a class="back-link" href="index.html#gallery">← Back to Gallery</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="year"></span> Painter's Studio. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      (function () {
+        const p = new URLSearchParams(window.location.search);
+        const img = p.get("img");
+        const title = p.get("title");
+        const desc = p.get("desc");
+        const meta = p.get("meta");
+        if (img) {
+          const i = document.getElementById("art-image");
+          i.src = img;
+          i.alt = title || "Artwork image";
+        }
+        if (title) document.getElementById("art-title").textContent = title;
+        if (desc) document.getElementById("art-desc").textContent = desc;
+        if (meta) document.getElementById("art-meta").textContent = meta;
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
 </html>

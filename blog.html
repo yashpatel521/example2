@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Painter's Studio</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Global reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #d2d2d2;
+        background-image: repeating-linear-gradient(
+            to right,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 100px,
+            #25283b22 100px 101px
+          );
+        font-family: Poppins, sans-serif;
+        color: #25283b;
+        line-height: 1.6;
+      }
+
+      body::before {
+        position: absolute;
+        width: min(1400px, 90vw);
+        top: 10%;
+        left: 50%;
+        height: 90%;
+        transform: translateX(-50%);
+        content: "";
+        background-image: url(images/bg.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: top center;
+        pointer-events: none;
+      }
+
+      /* Blog page styles */
+      .blog-page {
+        width: min(1200px, 92vw);
+        margin: 100px auto 40px;
+      }
+      .blog-hero {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      .blog-hero h1 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: clamp(32px, 5vw, 64px);
+        color: #25283b;
+        margin-bottom: 16px;
+      }
+      .blog-hero p {
+        font-family: Poppins, sans-serif;
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+        color: #25283b;
+        opacity: 0.9;
+      }
+
+      /* Blog posts grid */
+      .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+      }
+
+      .post-card {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid #e6e6e6;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .post-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .post-card a {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+      }
+
+      .post-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .post-card .post-content {
+        padding: 20px;
+      }
+
+      .post-card h4 {
+        font-family: "ICA Rubrik", Poppins, sans-serif;
+        font-size: 22px;
+        margin-bottom: 12px;
+        color: #25283b;
+      }
+
+      .post-card p {
+        color: #333;
+        opacity: 0.9;
+        margin-bottom: 16px;
+      }
+
+      .post-meta {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      /* Responsive */
+      @media screen and (max-width: 768px) {
+        .blog-page {
+          margin: 84px auto 32px;
+        }
+        .blog-hero {
+          margin-bottom: 32px;
+        }
+        .blog-hero h1 {
+          font-size: clamp(28px, 6vw, 48px);
+        }
+        .blog-hero p {
+          font-size: 16px;
+        }
+        .posts-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .blog-page {
+          margin: 72px auto 24px;
+        }
+        .post-card .post-content {
+          padding: 16px;
+        }
+        .post-card h4 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <a href="index.html" style="color: inherit; text-decoration: none"
+          >Painter's Studio</a
+        >
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="index.html#newsletter" class="cta">Subscribe</a>
+      </nav>
+    </header>
+
+    <main class="blog-page">
+      <div class="blog-hero">
+        <h1>Art Blog</h1>
+        <p>
+          Insights, techniques, and stories from the studio. Explore my latest
+          thoughts on color, composition, and the creative process.
+        </p>
+      </div>
+
+      <div class="posts-grid">
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting1.jpg&title=Color%20Study:%20Warm%20vs%20Cool&desc=Balancing%20palettes%20for%20mood%20and%20depth%20in%20landscape%20pieces.%20In%20this%20post,%20I%20explore%20how%20warm%20and%20cool%20colors%20can%20be%20used%20together%20to%20create%20depth%20and%20emotional%20resonance%20in%20landscape%20paintings.%20I%20discuss%20specific%20color%20mixing%20techniques%20and%20share%20examples%20from%20my%20recent%20work.&meta=Blog%20Post%20·%205%20min%20read"
+          >
+            <img
+              src="images/paintings/painting1.jpg"
+              alt="Color study: Warm vs Cool"
+            />
+            <div class="post-content">
+              <h4>Color Study: Warm vs Cool</h4>
+              <p>Balancing palettes for mood and depth in landscape pieces.</p>
+              <div class="post-meta">May 15, 2023 · 5 min read</div>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting2.jpg&title=5%20Brush%20Techniques%20I%20Use%20Daily&desc=From%20scumbling%20to%20glazing—methods%20that%20build%20texture.%20These%20five%20brush%20techniques%20form%20the%20backbone%20of%20my%20painting%20practice.%20I%20explain%20each%20technique%20in%20detail,%20including%20when%20to%20use%20it,%20what%20kind%20of%20brush%20works%20best,%20and%20how%20to%20achieve%20different%20effects.&meta=Blog%20Post%20·%203%20min%20read"
+          >
+            <img
+              src="images/paintings/painting2.jpg"
+              alt="5 Brush Techniques I Use Daily"
+            />
+            <div class="post-content">
+              <h4>5 Brush Techniques I Use Daily</h4>
+              <p>From scumbling to glazing—methods that build texture.</p>
+              <div class="post-meta">April 28, 2023 · 3 min read</div>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting3.jpg&title=Studio%20Lighting%20on%20a%20Budget&desc=How%20I%20light%20canvases%20for%20accurate%20color%20without%20breaking%20the%20bank.%20Creating%20the%20right%20lighting%20setup%20doesn't%20require%20expensive%20equipment.%20In%20this%20post,%20I%20share%20my%20DIY%20lighting%20solutions%20using%20household%20items%20and%20budget-friendly%20options%20that%20still%20provide%20accurate%20color%20rendering.&meta=Blog%20Post%20·%204%20min%20read"
+          >
+            <img
+              src="images/paintings/painting3.jpg"
+              alt="Studio Lighting on a Budget"
+            />
+            <div class="post-content">
+              <h4>Studio Lighting on a Budget</h4>
+              <p>
+                How I light canvases for accurate color without breaking the
+                bank.
+              </p>
+              <div class="post-meta">April 12, 2023 · 4 min read</div>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting4.jpg&title=The%20Anatomy%20of%20a%20Painting&desc=Breaking%20down%20the%20layers%20and%20process%20behind%20my%20latest%20piece.%20In%20this%20post,%20I%20take%20you%20through%20the%20entire%20process%20of%20creating%20one%20of%20my%20recent%20works,%20from%20initial%20sketch%20to%20final%20details.%20I%20discuss%20composition,%20color%20choices,%20and%20the%20emotional%20intent%20behind%20each%20brushstroke.&meta=Blog%20Post%20·%206%20min%20read"
+          >
+            <img
+              src="images/paintings/painting4.jpg"
+              alt="The Anatomy of a Painting"
+            />
+            <div class="post-content">
+              <h4>The Anatomy of a Painting</h4>
+              <p>
+                Breaking down the layers and process behind my latest piece.
+              </p>
+              <div class="post-meta">March 30, 2023 · 6 min read</div>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting5.jpg&title=Choosing%20the%20Right%20Brush%20for%20Each%20Task&desc=A%20guide%20to%20brush%20selection%20based%20on%20paint%20type,%20surface,%20and%20effect.%20Understanding%20brush%20characteristics%20can%20transform%20your%20painting.%20I%20cover%20bristle%20vs%20synthetic%20hairs,%20shapes,%20sizes,%20and%20when%20to%20use%20each%20type%20for%20optimal%20results.&meta=Blog%20Post%20·%204%20min%20read"
+          >
+            <img
+              src="images/paintings/painting5.jpg"
+              alt="Choosing the Right Brush for Each Task"
+            />
+            <div class="post-content">
+              <h4>Choosing the Right Brush for Each Task</h4>
+              <p>
+                A guide to brush selection based on paint type, surface, and
+                effect.
+              </p>
+              <div class="post-meta">March 18, 2023 · 4 min read</div>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a
+            href="detail.html?img=images/paintings/painting6.jpg&title=Capturing%20Light%20in%20Oil%20Paintings&desc=Techniques%20for%20rendering%20natural%20light%20effects%20in%20oil%20paintings.%20Light%20is%20one%20of%20the%20most%20challenging%20aspects%20of%20painting.%20In%20this%20post,%20I%20share%20my%20approach%20to%20observing%20and%20translating%20natural%20light%20into%20oil%20paint,%20including%20color%20temperature%20shifts%20and%20value%20relationships.&meta=Blog%20Post%20·%205%20min%20read"
+          >
+            <img
+              src="images/paintings/painting6.jpg"
+              alt="Capturing Light in Oil Paintings"
+            />
+            <div class="post-content">
+              <h4>Capturing Light in Oil Paintings</h4>
+              <p>
+                Techniques for rendering natural light effects in oil paintings.
+              </p>
+              <div class="post-meta">March 5, 2023 · 5 min read</div>
+            </div>
+          </a>
+        </article>
+      </div>
+    </main>
+
+    <footer
+      class="site-footer"
+      style="
+        padding: 20px;
+        text-align: center;
+        font-family: Poppins, sans-serif;
+        color: #25283b;
+      "
+    >
+      <p>
+        &copy; <span id="year"></span> Painter's Studio. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
